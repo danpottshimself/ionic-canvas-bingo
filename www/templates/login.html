@@ -1,0 +1,23 @@
+<ion-view title="Login">
+    <ion-content padding="'true'" class="has-header">
+        <img src="img/5su9J45YRDeCBleNdwH9_pageBanner.png" width="100%" height="auto">
+        <form class="list">
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" ng-model="userLogIn.username" name="username" placeholder="Enter Username">
+                </label>
+            </ion-list>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input type="password" ng-model="userLogIn.password" name="password" value="" placeholder="Enter Password">
+            </label>
+          <label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+            Remember me on this computer
+          </label>
+        </form>
+        <div class="spacer" style="height: 40px;"></div>
+        <button class="button button-balanced button-block " ng-click="userLogIn.logIn()">Log in</button>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-view title="Ticket Master" class="centreLobby">
+    <ion-content padding="'true'" class="has-header">
+        <h2 class="timer" ng-hide="gameTimer.hideMe" > Time till game starts: {{gameTimer.timeBeforeStart}} </h2>
+        <div class="spacer" style="width: 300px; height: 26px;"></div>
+        <button ng-hide="gameTimer.hideMe"  class="button button-balanced button-block  icon-left ion-android-add" ng-click="gameApi.buyTicket()">Buy Ticket</button>
+<ion-list>
+  <ion-item>
+      <h2 class="timer item2"> Balance: {{userLogIn.balance | currency}} </h2>
+  </ion-item>
+  <ion-item class="item2">
+      <h1 class="calledRow numbersRow animated pulse infinite">{{callingMethod.calledNumbers[0]}}</h1>
+      <h1 class="calledRow numbersRow">{{callingMethod.calledNumbers[1]}}</h1>
+      <h1 class="calledRow numbersRow">{{callingMethod.calledNumbers[2]}}</h1>
+      <h1 class="calledRow numbersRow">{{callingMethod.calledNumbers[3]}}</h1>
+      <h1 class="calledRow numbersRow">{{callingMethod.calledNumbers[4]}}</h1>
+      <h1 class="calledNumber animated slideInLeft infinite">{{callingMethod.call}}</h1>
+    </ion-item>
+</ion-list>
+      <br>
+      <ion-list>
+      <ion-item ng-repeat="ticket in ticketCreation.ticketStrip  track by $index" class=" item2 ticketSpace">
+        <div class="bingoTicket">
+        <div ng-repeat="line in ticket  track by $index">
+          <div ng-repeat= "square in ticketCreation.createSquares() track by $index">
+            <div class="square border centreText {{ticketCreation.isASquare($parent.$index, $index)| SpaceFilter}}"> {{ticketCreation.isASquare($parent.$index, $index).ticketNumber}}
+              </div>
+            </div>
+          </div>
+        </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+</ion-view>
