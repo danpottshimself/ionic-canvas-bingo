@@ -12781,3 +12781,11 @@ margin-left: 5%;
 .clappingSound{
   display:none;
 }
+
+canvas{
+  margin-top: 10%;
+}
+
+.aboveCanvas{
+  margin-top:5%;
+}

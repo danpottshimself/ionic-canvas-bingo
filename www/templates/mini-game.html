@@ -1,6 +1,13 @@
-<ion-view title="Mini Game" class="centreLobby" ng-init="gameFunctions.draw();">
+<ion-view title="Mini Game" class="centreLobby" ng-init="gameFunctions.init();">
   <ion-content padding="'true'" class="has-header">
-    <canvas  id="canvas" width="400" height="400"></canvas>
+    <ion-list>
+      <ion-item class="aboveCanvas">
+          <h2> Use the arrow keys to control the snake.</h2>
+        <h3> Collect the food to make the snake longer and increase your score.</h3>
+
+      </ion-item>
+    </ion-list>
+    <canvas id="canvas" width="450" height="450"></canvas>
 
 
     <ion-nav-bar class="bar-stable">

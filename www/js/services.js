@@ -385,38 +385,126 @@ angular.module('app.services', [])
     }])
 
   .service('GameFunctions',
-    function () {
-      var me  = this;
+  function () {
+    var me  = this;
+    var cw = 10,
+      d,
+      food,
+      score,
+      snakeArray;
 
-    me.draw = function (){
-      me.canvas = document.getElementById('canvas');
-      me.ctx = canvas.getContext('2d');
-      for (var i=0;i<5;i++){
-        for (var j=0;j<5;j++){
-          me.ctx.strokeStyle = 'rgb(0,' + Math.floor(255-42.5*i) + ',' +
-            Math.floor(255-42.5*j) + ')';
-          me.ctx.beginPath();
+    me.init = function (){
+      var canvas = document.getElementById('canvas'),
+      ctx = canvas.getContext('2d'),
+       w = canvas.width,
+       h = canvas.height;
 
-          me.ctx.arc(20+j*70,10+i*70,20,0,Math.PI*2,true);
-          me.ctx.stroke();
+      var createSnake = function ()
+      {
+        var length = 5;
+        snakeArray = [];
+        for(var i = length-1; i>=0; i--)
+        {
+          snakeArray.push({x: i, y:0});
         }
+      };
+
+      var createFood = function()
+      {
+        food = {
+          x: Math.round(Math.random()*(w-cw)/cw),
+          y: Math.round(Math.random()*(h-cw)/cw)
+        };
+      };
+
+    var paint = function ()
+    {
+
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = "black";
+      ctx.strokeRect(0, 0, w, h);
+
+      var nx = snakeArray[0].x;
+      var ny = snakeArray[0].y;
+
+      if(d == "right") nx++;
+      else if(d == "left") nx--;
+      else if(d == "up") ny--;
+      else if(d == "down") ny++;
+
+      if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || checkForCollision(nx, ny, snakeArray))
+      {
+        start();
+        return;
       }
-      me.canvas.addEventListener('click', me.reDraw, false);
+      if(nx == food.x && ny == food.y)
+      {
+        var tail = {x: nx, y: ny};
+        score++;
+        createFood();
+      }
+      else
+      {
+        var tail = snakeArray.pop();
+        tail.x = nx; tail.y = ny;
+      }
+      snakeArray.unshift(tail);
+
+      for(var i = 0; i < snakeArray.length; i++)
+      {
+        var c = snakeArray[i];
+        fillCells(c.x, c.y);
+      }
+
+      fillCells(food.x, food.y);
+      var scoreText = "Score: " + score;
+      ctx.fillText(scoreText, 5, h-5);
     };
 
-      me.reDraw = function(event){
-        var x = event.clientX - me.canvas.getBoundingClientRect().left,
-            y = event.clientY - me.canvas.getBoundingClientRect().top;
+    var fillCells = function (x, y)
+    {
+      ctx.fillStyle = "blue";
+      ctx.fillRect(x*cw, y*cw, cw, cw);
+      ctx.strokeStyle = "white";
+      ctx.strokeRect(x*cw, y*cw, cw, cw);
+    };
 
-        if(me.ctx.isPointInPath(x,y)){
-        //me.ctx.fillRect(0,0,me.ctx.width,me.ctx.height);
-          me.ctx.fillstyle = 'green';
-          me.ctx.fill();
-
-          //me.draw();
-        }
+    var checkForCollision = function (x, y, array)
+    {
+      for(var i = 0; i < array.length; i++)
+      {
+        if(array[i].x == x && array[i].y == y)
+          return true;
       }
+      return false;
+    };
+
+      var start = function ()
+      {
+        d = "right";
+        createSnake();
+        createFood();
+        paint();
+
+        score = 0;
+
+        if(typeof game_loop != "undefined") clearInterval(game_loop);
+        game_loop = setInterval(paint, 60);
+      };
+      start();
+
+    $(document).keydown(function(e){
+      var key = e.which;
+
+      if(key == "37" && d != "right") d = "left";
+      else if(key == "38" && d != "down") d = "up";
+      else if(key == "39" && d != "left") d = "right";
+      else if(key == "40" && d != "up") d = "down";
     })
+    };
+
+  })
 
   .service('MiniGameEnter', ['$state',
     function ($state) {
