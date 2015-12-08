@@ -101,7 +101,7 @@ angular.module('app.services', [])
       me.callApi = function (endUrl, data, token,requestType) {
         var deferred = $q.defer();
         request = {
-          url: 'http://eutaveg-01.tombola.emea:30069' + endUrl,
+          url: 'http://domubuntu-nu8d4jga.cloudapp.net:30069' + endUrl,
           data: data,
           headers: {
             'x-token': token,
@@ -501,7 +501,29 @@ angular.module('app.services', [])
       else if(key == "38" && d != "down") d = "up";
       else if(key == "39" && d != "left") d = "right";
       else if(key == "40" && d != "up") d = "down";
-    })
+    });
+
+      me.turnRight = function (){
+        d = "right";
+      };
+      me.turnLeft = function (){
+        d = "left";
+      };
+      me.turnUp = function (){
+        d = "up";
+      };
+      me.turnDown = function (){
+        d = "down";
+      };
+      //var doKeyDown = function (e) {
+      //  var key = e.which;
+      //  if(key == "37" || key == "65" && d != "right") d = "left";
+      //  else if(key == "38" || key == "87" && d != "down") d = "up";
+      //  else if(key == "39" || key == "68" && d != "left") d = "right";
+      //  else if(key == "40" || key == "83" && d != "up") d = "down";
+      //};
+      //
+      //window.addEventListener( "keypress", doKeyDown, false );
     };
 
   })

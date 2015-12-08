@@ -1,5 +1,5 @@
-<ion-view title="Mini Game" class="centreLobby" ng-init="gameFunctions.init();">
-  <ion-content padding="'true'" class="has-header">
+<ion-view title="Mini Game" class="centreLobby" ng-init="gameFunctions.init();" on-swipe-right="gameFunctions.turnRight();" on-swipe-left="gameFunctions.turnLeft();" on-swipe-up=gameFunctions.turnUp() on-swipe-down="gameFunctions.turnDown();">
+  <ion-content scroll="false" padding="'true'" class="has-header">
     <ion-list>
       <ion-item class="aboveCanvas">
           <h2> Use the arrow keys to control the snake.</h2>
@@ -7,7 +7,7 @@
 
       </ion-item>
     </ion-list>
-    <canvas id="canvas" width="450" height="450"></canvas>
+    <canvas id="canvas" width="450" height="450" ng-swipe-right=gameFunctions.turnRight() ng-swipe-left=gameFunctions.turnLeft() ng-swipe-up=gameFunctions.turnUp() ng-swipe-down=gameFunctions.turnDown()></canvas>
 
 
     <ion-nav-bar class="bar-stable">
