@@ -1,0 +1,12 @@
+<ion-view title="SNAP!">
+  <ion-content scroll="true" padding="'true'" class="has-header content">
+    <ion-list>
+    <ion-item><h1> Welcome to Snap! </h1></ion-item>
+      <ion-item><h3> This is an experimental game, created using angular js.</h3> </ion-item>
+      <div class="scores"><h3> Player score: {{stateChange.playerScore}}</h3> </div>
+      <div class="scores"> <h3> AI score: {{stateChange.aiScore}}</h3></div>
+        </ion-item>
+    </ion-list>
+    <input type="button" value="Play Game" ng-click="stateChange.goToLobby()">
+</ion-content>
+</ion-view>

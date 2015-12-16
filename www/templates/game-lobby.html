@@ -1,0 +1,25 @@
+<!--<ion-view title="Snap!">-->
+  <!--<ion-content scroll="true" padding="'true'" class="has-header content">-->
+    <!--<h4 ng-click="sortCards.init()"> Shuffle </h4>-->
+    <!--<h4 ng-click="displayCards.showCard()"> Play </h4>-->
+<!--<div class="content imageContainer animated2 flipOutY infinite {{displayCards.chosenCard.image}}" ng-hide="sortCards.hideMe"> </div>-->
+<!--<div class="content"> <input type="image" class="snapButton" src="../img/snap-button.png" ng-disabled="winConditions.isButtonDisabled" ng-click="checkForWins.checkSnap()"> </div>-->
+  <!--<ion-nav-bar class="bar-stable">-->
+    <!--<ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>-->
+  <!--</ion-nav-bar>-->
+  <!--<ion-nav-view></ion-nav-view>-->
+  <!--</ion-content>-->
+<!--</ion-view>-->
+
+<ion-view title="SNAP!">
+  <ion-content scroll="true" padding="'true'" class="has-header content">
+    <ion-list>
+      <ion-item>
+      <input type="button" value="Shuffle Cards" ng-click="sortCards.init()"></ion-item>
+      <ion-item><input type="button" value="Play Snap" ng-click="displayCards.showCard()"></ion-item>
+      <div class="content imageContainer animated flipOutY infinite {{displayCards.chosenCard.image}}" ng-hide="sortCards.hideMe"> </div>
+      <div class="content"> <input type="image" class="snapButton" src="../img/snap-button.png" ng-disabled="winConditions.isButtonDisabled" ng-click="checkForWins.checkSnap()"> </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

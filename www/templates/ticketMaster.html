@@ -1,4 +1,4 @@
-<ion-view title="Ticket Master" class="centreLobby">
+<ion-view title="Ticket Master" class="centreLobby" ng-init="gameTimer.updateTime()">
     <ion-content padding="'true'" class="has-header">
         <h2 class="timer" ng-hide="gameTimer.hideMe" > Time till game starts: {{gameTimer.timeBeforeStart}} </h2>
         <div class="spacer" style="width: 300px; height: 26px;"></div>

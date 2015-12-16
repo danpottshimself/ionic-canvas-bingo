@@ -30,6 +30,12 @@ angular.module('app.routes', [])
       controller: 'miniGameController'
     })
 
+    .state('pairsGame', {
+      url: '/pairsGame',
+      templateUrl: 'templates/mini-game2.html',
+      controller: 'miniGameController'
+    })
+
 
     .state('tickets', {
       url: '/ticketMaster',
@@ -37,6 +43,23 @@ angular.module('app.routes', [])
       controller: 'ticketMasterCtrl'
     })
 
+    .state('homePage', {
+      url: "/HomePage",
+      templateUrl: 'templates/home-page.html',
+      controller: 'HomeController'
+    })
+
+    .state('gameLobby', {
+      url: "/lobby",
+      templateUrl: 'templates/game-lobby.html',
+      controller: 'LobbyController'
+    })
+
+    .state('blackJack', {
+      url: "/blackJack",
+      templateUrl: 'templates/black-jack.html',
+      controller: 'BlackJackController'
+    })
 
     ;
 

@@ -9304,28 +9304,28 @@ a.button {
   }
 }
 
-@media (max-width: 20em) {
-  .pane img {
-    width: 80%;
-    height:auto;
-    margin-left:10%;
-  }
-}
-@media (max-height: 20em) {
-  .pane img{
-    width: 80%;
-    height:auto;
-    margin-left:10%;
-  }
-}
+/*@media (max-width: 20em) {*/
+  /*.pane img {*/
+    /*width: 80%;*/
+    /*height:auto;*/
+    /*margin-left:10%;*/
+  /*}*/
+/*}*/
+/*@media (max-height: 20em) {*/
+  /*.pane img{*/
+    /*width: 80%;*/
+    /*height:auto;*/
+    /*margin-left:10%;*/
+  /*}*/
+/*}*/
 
-@media (min-width: 30em) {
-  .pane img{
-    margin-left: 10%;
-    width: 80%;
-    height:auto;
-  }
-}
+/*@media (min-width: 30em) {*/
+  /*.pane img{*/
+    /*margin-left: 10%;*/
+    /*width: 80%;*/
+    /*height:auto;*/
+  /*}*/
+/*}*/
 
 .container {
   width: 100%;
@@ -9428,6 +9428,15 @@ a.button {
   width: 100%;
   height:auto;
 }
+.scores {
+  display: inline-block;
+  margin-top: 10%;
+  padding-right: 10%;
+  margin-bottom: 10%;
+}
+.itemSpace{
+margin-top: 10%;
+}
 .ticketSpace {
   width: 340px;
   height: 120px;
@@ -9512,10 +9521,16 @@ margin-left: 5%;
 
 
 .animated {
-  -webkit-animation-duration: 4s;
-  animation-duration: 4s;
+  -webkit-animation-duration: 4.5s;
+  animation-duration: 4.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+
+.animated.flipOutX,
+.animated.flipOutY {
+  -webkit-animation-duration: 4.5s;
+  animation-duration: 4.5s;
 }
 
 .animated.infinite {
@@ -9534,11 +9549,6 @@ margin-left: 5%;
   animation-duration: .75s;
 }
 
-.animated.flipOutX,
-.animated.flipOutY {
-  -webkit-animation-duration: .75s;
-  animation-duration: .75s;
-}
 
 @-webkit-keyframes bounce {
   from, 20%, 53%, 80%, to {
@@ -12827,3 +12837,201 @@ canvas{
     padding: 0;
   }
 }
+
+.playButton:hover {
+  background-image: url('../../../img/play-button-hover.png');
+}
+.shuffleButton:hover {
+  background-image: url('../../../img/shuffle-button-hover.png');
+}
+.snapButton:hover {
+  background-image: url('../../../img/snap-button-hover.png');
+}
+.pageBanner {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  height: auto;
+}
+.content {
+  margin: 0 auto;
+  align-content: center;
+  text-align: center;
+}
+.imageContainer {
+  margin-top:5%;
+  width: 200px;
+  height: 250px;
+  background-repeat: no-repeat;
+}
+.Clubs2 {
+  background-image: url('../../../img/clubs2.png');
+}
+.Clubs3 {
+  background-image: url('../../../img/clubs3.png');
+}
+.Clubs4 {
+  background-image: url('../../../img/clubs4.png');
+}
+.Clubs5 {
+  background-image: url('../../../img/clubs5.png');
+}
+.Clubs6 {
+  background-image: url('../../../img/clubs6.png');
+}
+.Clubs7 {
+  background-image: url('../../../img/clubs7.png');
+}
+.Clubs8 {
+  background-image: url('../../../img/clubs8.png');
+}
+.Clubs9 {
+  background-image: url('../../../img/clubs9.jpg');
+}
+.Clubs10 {
+  background-image: url('../../../img/clubs10.png');
+}
+.ClubsJack {
+  background-image: url('../../../img/clubsjack.png');
+}
+.ClubsQueen {
+  background-image: url('../../../img/clubsqueen.png');
+}
+.ClubsKing {
+  background-image: url('../../../img/clubsking.png');
+}
+.ClubsAce {
+  background-image: url('../../../img/clubsace.png');
+}
+.DiamondsAce {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d3/Playing_card_diamond_A.svg);
+}
+.Diamonds2 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/59/Playing_card_diamond_2.svg);
+}
+.Diamonds3 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/82/Playing_card_diamond_3.svg);
+}
+.Diamonds4 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/20/Playing_card_diamond_4.svg);
+}
+.Diamonds5 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/fd/Playing_card_diamond_5.svg);
+}
+.Diamonds6 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/80/Playing_card_diamond_6.svg);
+}
+.Diamonds7 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e6/Playing_card_diamond_7.svg);
+}
+.Diamonds8 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/7/78/Playing_card_diamond_8.svg);
+}
+.Diamonds9 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9e/Playing_card_diamond_9.svg);
+}
+.Diamonds10 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/34/Playing_card_diamond_10.svg);
+}
+.DiamondsJack {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/af/Playing_card_diamond_J.svg);
+}
+.DiamondsQueen {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/0/0b/Playing_card_diamond_Q.svg);
+}
+.DiamondsKing {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/7/78/Playing_card_diamond_K.svg);
+}
+.HeartsAce {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/5/57/Playing_card_heart_A.svg);
+}
+.Hearts2 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/Playing_card_heart_2.svg);
+}
+.Hearts3 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/b/b6/Playing_card_heart_3.svg);
+}
+.Hearts4 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/a/a2/Playing_card_heart_4.svg);
+}
+.Hearts5 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/5/52/Playing_card_heart_5.svg);
+}
+.Hearts6 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/c/cd/Playing_card_heart_6.svg);
+}
+.Hearts7 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/94/Playing_card_heart_7.svg);
+}
+.Hearts8 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/5/50/Playing_card_heart_8.svg);
+}
+.Hearts9 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/5/50/Playing_card_heart_9.svg);
+}
+.Hearts10 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/98/Playing_card_heart_10.svg);
+}
+.HeartsJack {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/Playing_card_heart_J.svg);
+}
+.HeartsQueen {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/7/72/Playing_card_heart_Q.svg);
+}
+.HeartsKing {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/dc/Playing_card_heart_K.svg);
+}
+.SpadesAce {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/2/25/Playing_card_spade_A.svg);
+}
+.Spades2 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/f/f2/Playing_card_spade_2.svg);
+}
+.Spades3 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/5/52/Playing_card_spade_3.svg);
+}
+.Spades4 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/2/2c/Playing_card_spade_4.svg);
+}
+.Spades5 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/94/Playing_card_spade_5.svg);
+}
+.Spades6 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/d/d2/Playing_card_spade_6.svg);
+}
+.Spades7 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/6/66/Playing_card_spade_7.svg);
+}
+.Spades8 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/2/21/Playing_card_spade_8.svg);
+}
+.Spades9 {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/e/e0/Playing_card_spade_9.svg);
+}
+.Spades10 {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/87/Playing_card_spade_10.svg);
+}
+.SpadesJack {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/bd/Playing_card_spade_J.svg);
+}
+.SpadesQueen {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/51/Playing_card_spade_Q.svg);
+}
+.SpadesKing {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Playing_card_spade_K.svg);
+}
+
+@media (max-height: 25em) {
+  .snapButton {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 25em) {
+  .snapButton {
+    width: 100px;
+    height: 100px;
+  }
+}
+

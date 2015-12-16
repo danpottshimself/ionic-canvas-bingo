@@ -1,40 +1,40 @@
 angular.module('app.services', [])
 
-.factory('BlankFactory', [function(){
-
-}])
-
-.service('BlankService', [function(){
-
-}])
-
-.service('UserLogIn', ['$state', 'Proxy','TokenService',
-  function ($state, proxy, tokenService) {
-    var me  = this;
-
-    me.logIn = function () {
-      proxy.logIn(me.username, me.password).then(function (response) {
-        me.balance = response.balance;
-        tokenService.setToken(response.token);
-        lobbyStateChange();
-      });
-    };
-
-    me.logOut = function () {
-      proxy.logOut(tokenService.getToken()).then(function (){
-        tokenService.resetToken();
-        logInStateChange();
-      });
-    };
-
-    var lobbyStateChange = function (){
-        return $state.go('lobby');
-      },
-      logInStateChange = function () {
-        return $state.go('logIn');
-      };
+  .factory('BlankFactory', [function () {
 
   }])
+
+  .service('BlankService', [function () {
+
+  }])
+
+  .service('UserLogIn', ['$state', 'Proxy', 'TokenService',
+    function ($state, proxy, tokenService) {
+      var me = this;
+
+      me.logIn = function () {
+        proxy.logIn(me.username, me.password).then(function (response) {
+          me.balance = response.balance;
+          tokenService.setToken(response.token);
+          lobbyStateChange();
+        });
+      };
+
+      me.logOut = function () {
+        proxy.logOut(tokenService.getToken()).then(function () {
+          tokenService.resetToken();
+          logInStateChange();
+        });
+      };
+
+      var lobbyStateChange = function () {
+          return $state.go('lobby');
+        },
+        logInStateChange = function () {
+          return $state.go('logIn');
+        };
+
+    }])
 
   .service('TicketCreation',
   function () {
@@ -95,13 +95,13 @@ angular.module('app.services', [])
     };
   })
 
-.service('Proxy', ['$http', '$q', 'ObjectConverter',
+  .service('Proxy', ['$http', '$q', 'ObjectConverter',
     function ($http, $q, objectConverter) {
       var me = this;
-      me.callApi = function (endUrl, data, token,requestType) {
+      me.callApi = function (endUrl, data, token, requestType) {
         var deferred = $q.defer();
         request = {
-          url: 'http://domubuntu-nu8d4jga.cloudapp.net:30069' + endUrl,
+          url: 'http://eutaveg-01.tombola.emea:30069' + endUrl,
           data: data,
           headers: {
             'x-token': token,
@@ -134,24 +134,24 @@ angular.module('app.services', [])
     }])
 
 
-    .service('TokenService', function () {
-      var token = null;
+  .service('TokenService', function () {
+    var token = null;
 
-      return {
-        isAuthenticated: function () {
-          return token !== null;
-        },
-        getToken: function () {
-          return token;
-        },
-        setToken: function (tokenFromApi) {
-          token = tokenFromApi;
-        },
-        resetToken: function () {
-          this.setToken(null);
-        }
-      };
-    })
+    return {
+      isAuthenticated: function () {
+        return token !== null;
+      },
+      getToken: function () {
+        return token;
+      },
+      setToken: function (tokenFromApi) {
+        token = tokenFromApi;
+      },
+      resetToken: function () {
+        this.setToken(null);
+      }
+    };
+  })
   .service('ObjectConverter',
   function () {
     var me = this;
@@ -207,10 +207,10 @@ angular.module('app.services', [])
         return buyTicketDetails;
       };
   })
-  .service('CheckWinners', ['$state','$ionicPopup', '$timeout', 'UserLogIn','TicketCreation',
+  .service('CheckWinners', ['$state', '$ionicPopup', '$timeout', 'UserLogIn', 'TicketCreation',
     function ($state, $ionicPopup, $timeout, userLogIn, ticketCreation) {
-      var me  = this,
-        stateChanger = function (){
+      var me = this,
+        stateChanger = function () {
           $state.go('lobby');
         };
 
@@ -223,25 +223,25 @@ angular.module('app.services', [])
         }
       };
 
-      me.lineWinner= function(response){
+      me.lineWinner = function (response) {
         var lineMessage = $ionicPopup.alert({
           title: 'You have won the Line prize!',
-            template:'Well Done! You have won the line prize of £' + response.winnerInfo.lineprize
+          template: 'Well Done! You have won the line prize of £' + response.winnerInfo.lineprize
         });
         userLogIn.balance += response.winnerInfo.lineprize;
       };
 
-      me.houseWinner= function(response){
+      me.houseWinner = function (response) {
         var houseMessage = $ionicPopup.alert({
           title: 'You have won the House prize!',
-          template:'Well Done! You have won the line prize of £' + response.winnerInfo.houseprize
+          template: 'Well Done! You have won the line prize of £' + response.winnerInfo.houseprize
         });
         userLogIn.balance += response.winnerInfo.houseprize;
-        $timeout (clearPreviousGame, 6000);
-        $timeout (stateChanger, 9000);
+        $timeout(clearPreviousGame, 6000);
+        $timeout(stateChanger, 9000);
       };
 
-      var clearPreviousGame = function(){
+      var clearPreviousGame = function () {
         ticketCreation.ticketStrip = [];
         ticketCreation.restructuredTicket = {numbers: []};
         ticketCreation.squares = [];
@@ -251,8 +251,8 @@ angular.module('app.services', [])
       };
     }])
   .service('GameApiModel',
-  ['$state', 'GameApiProxy', 'UserLogIn', 'GameTimer', 'TokenService','TicketCreation',
-    function ($state, gameApiProxy, userLogIn, gameTimer, tokenService,ticketCreation) {
+  ['$state', 'GameApiProxy', 'UserLogIn', 'GameTimer', 'TokenService', 'TicketCreation',
+    function ($state, gameApiProxy, userLogIn, gameTimer, tokenService, ticketCreation) {
       var me = this,
         stateChanger = function () {
           $state.go('tickets');
@@ -283,7 +283,7 @@ angular.module('app.services', [])
         me.handlePromise(promise);
       };
     }])
-  .service('GameApiProxy', [ '$http', '$q', 'Proxy','UserLogIn',
+  .service('GameApiProxy', ['$http', '$q', 'Proxy', 'UserLogIn',
     function ($http, $q, proxy, userLogIn) {
       var me = this;
 
@@ -293,9 +293,9 @@ angular.module('app.services', [])
 
       me.buyTicket = function (token) {
         var data = {
-          'gameId' : 1,
+          'gameId': 1,
           'userId': userLogIn.username,
-          'balance':userLogIn.balance
+          'balance': userLogIn.balance
         };
         return proxy.callApi('/game/buyticket', data, token, 'POST');
       };
@@ -339,9 +339,9 @@ angular.module('app.services', [])
         }
       };
     }])
-  .service('BingoCallProxy', ['Proxy','UserLogIn',
+  .service('BingoCallProxy', ['Proxy', 'UserLogIn',
     function (proxy, userLogIn) {
-      var me  = this;
+      var me = this;
       me.calledNumbers = [];
 
       me.bingoCall = function (callNumber, token) {
@@ -351,18 +351,18 @@ angular.module('app.services', [])
           balance: userLogIn.balance,
           callnumber: callNumber
         };
-        return proxy.callApi('/game/getcall', data, token,  'POST');
+        return proxy.callApi('/game/getcall', data, token, 'POST');
       };
 
     }])
 
-  .service('GameTimer', ['$state', '$interval','BingoCall',
+  .service('GameTimer', ['$state', '$interval', 'BingoCall',
     function ($state, $interval, bingoCall) {
       var me = this,
         timer;
       me.hideMe = false;
       me.timeTillGame = function (time) {
-        me.hideMe =false;
+        me.hideMe = false;
         var realTime = new Date(),
           gameTime = new Date(time),
           timeDifference = Math.abs(gameTime.getTime() - realTime.getTime());
@@ -379,109 +379,98 @@ angular.module('app.services', [])
         }
       };
 
-      me.stop = function (){
+      me.stop = function () {
         $interval.cancel(timer);
       };
     }])
 
   .service('GameFunctions',
   function () {
-    var me  = this;
+    var me = this;
     var cw = 10,
       d,
       food,
       score,
       snakeArray;
 
-    me.init = function (){
+    me.init = function () {
       var canvas = document.getElementById('canvas'),
-      ctx = canvas.getContext('2d'),
-       w = canvas.width,
-       h = canvas.height;
+        ctx = canvas.getContext('2d'),
+        w = canvas.width,
+        h = canvas.height;
 
-      var createSnake = function ()
-      {
+      var createSnake = function () {
         var length = 5;
         snakeArray = [];
-        for(var i = length-1; i>=0; i--)
-        {
-          snakeArray.push({x: i, y:0});
+        for (var i = length - 1; i >= 0; i--) {
+          snakeArray.push({x: i, y: 0});
         }
       };
 
-      var createFood = function()
-      {
+      var createFood = function () {
         food = {
-          x: Math.round(Math.random()*(w-cw)/cw),
-          y: Math.round(Math.random()*(h-cw)/cw)
+          x: Math.round(Math.random() * (w - cw) / cw),
+          y: Math.round(Math.random() * (h - cw) / cw)
         };
       };
 
-    var paint = function ()
-    {
+      var paint = function () {
 
-      ctx.fillStyle = "black";
-      ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = "black";
-      ctx.strokeRect(0, 0, w, h);
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(0, 0, w, h);
 
-      var nx = snakeArray[0].x;
-      var ny = snakeArray[0].y;
+        var nx = snakeArray[0].x;
+        var ny = snakeArray[0].y;
 
-      if(d == "right") nx++;
-      else if(d == "left") nx--;
-      else if(d == "up") ny--;
-      else if(d == "down") ny++;
+        if (d == "right") nx++;
+        else if (d == "left") nx--;
+        else if (d == "up") ny--;
+        else if (d == "down") ny++;
 
-      if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || checkForCollision(nx, ny, snakeArray))
-      {
-        start();
-        return;
-      }
-      if(nx == food.x && ny == food.y)
-      {
-        var tail = {x: nx, y: ny};
-        score++;
-        createFood();
-      }
-      else
-      {
-        var tail = snakeArray.pop();
-        tail.x = nx; tail.y = ny;
-      }
-      snakeArray.unshift(tail);
+        if (nx == -1 || nx == w / cw || ny == -1 || ny == h / cw || checkForCollision(nx, ny, snakeArray)) {
+          start();
+          return;
+        }
+        if (nx == food.x && ny == food.y) {
+          var tail = {x: nx, y: ny};
+          score++;
+          createFood();
+        }
+        else {
+          var tail = snakeArray.pop();
+          tail.x = nx;
+          tail.y = ny;
+        }
+        snakeArray.unshift(tail);
 
-      for(var i = 0; i < snakeArray.length; i++)
-      {
-        var c = snakeArray[i];
-        fillCells(c.x, c.y);
-      }
+        for (var i = 0; i < snakeArray.length; i++) {
+          var c = snakeArray[i];
+          fillCells(c.x, c.y);
+        }
 
-      fillCells(food.x, food.y);
-      var scoreText = "Score: " + score;
-      ctx.fillText(scoreText, 5, h-5);
-    };
+        fillCells(food.x, food.y);
+        var scoreText = "Score: " + score;
+        ctx.fillText(scoreText, 5, h - 5);
+      };
 
-    var fillCells = function (x, y)
-    {
-      ctx.fillStyle = "blue";
-      ctx.fillRect(x*cw, y*cw, cw, cw);
-      ctx.strokeStyle = "white";
-      ctx.strokeRect(x*cw, y*cw, cw, cw);
-    };
+      var fillCells = function (x, y) {
+        ctx.fillStyle = "blue";
+        ctx.fillRect(x * cw, y * cw, cw, cw);
+        ctx.strokeStyle = "white";
+        ctx.strokeRect(x * cw, y * cw, cw, cw);
+      };
 
-    var checkForCollision = function (x, y, array)
-    {
-      for(var i = 0; i < array.length; i++)
-      {
-        if(array[i].x == x && array[i].y == y)
-          return true;
-      }
-      return false;
-    };
+      var checkForCollision = function (x, y, array) {
+        for (var i = 0; i < array.length; i++) {
+          if (array[i].x == x && array[i].y == y)
+            return true;
+        }
+        return false;
+      };
 
-      var start = function ()
-      {
+      var start = function () {
         d = "right";
         createSnake();
         createFood();
@@ -489,57 +478,57 @@ angular.module('app.services', [])
 
         score = 0;
 
-        if(typeof game_loop != "undefined") clearInterval(game_loop);
+        if (typeof game_loop != "undefined") clearInterval(game_loop);
         game_loop = setInterval(paint, 60);
       };
       start();
 
-    $(document).keydown(function(e){
-      var key = e.which;
+      $(document).keydown(function (e) {
+        var key = e.which;
 
-      if(key == "37" && d != "right") d = "left";
-      else if(key == "38" && d != "down") d = "up";
-      else if(key == "39" && d != "left") d = "right";
-      else if(key == "40" && d != "up") d = "down";
-    });
+        if (key == "37" && d != "right") d = "left";
+        else if (key == "38" && d != "down") d = "up";
+        else if (key == "39" && d != "left") d = "right";
+        else if (key == "40" && d != "up") d = "down";
+      });
 
-      me.turnRight = function (){
+      me.turnRight = function () {
         d = "right";
       };
-      me.turnLeft = function (){
+      me.turnLeft = function () {
         d = "left";
       };
-      me.turnUp = function (){
+      me.turnUp = function () {
         d = "up";
       };
-      me.turnDown = function (){
+      me.turnDown = function () {
         d = "down";
       };
-      //var doKeyDown = function (e) {
-      //  var key = e.which;
-      //  if(key == "37" || key == "65" && d != "right") d = "left";
-      //  else if(key == "38" || key == "87" && d != "down") d = "up";
-      //  else if(key == "39" || key == "68" && d != "left") d = "right";
-      //  else if(key == "40" || key == "83" && d != "up") d = "down";
-      //};
-      //
-      //window.addEventListener( "keypress", doKeyDown, false );
     };
 
   })
 
   .service('MiniGameEnter', ['$state',
     function ($state) {
-      var me  = this;
+      var me = this;
 
-      me.playGame = function(){
+      me.playGame = function () {
         $state.go('miniGame');
+      };
+      me.playMatch = function () {
+        $state.go('pairsGame');
+      };
+      me.playSnap = function () {
+        $state.go('homePage');
+      };
+      me.playBlackJack = function () {
+        $state.go('blackJack');
       };
 
     }])
-.service('BingoCallProxy', ['Proxy','UserLogIn',
+  .service('BingoCallProxy', ['Proxy', 'UserLogIn',
     function (proxy, userLogIn) {
-      var me  = this;
+      var me = this;
       me.calledNumbers = [];
 
       me.bingoCall = function (callNumber, token) {
@@ -549,24 +538,181 @@ angular.module('app.services', [])
           balance: userLogIn.balance,
           callnumber: callNumber
         };
-        return proxy.callApi('/game/getcall', data, token,  'POST');
+        return proxy.callApi('/game/getcall', data, token, 'POST');
       };
 
     }])
 
   .service('GameAudio',
-    function () {
-      var me = this,
-        cheers = document.getElementsByClassName("cheerSound"),
-        clappingSound =  document.getElementsByClassName("clappingSound");
+  function () {
+    var me = this,
+      cheers = document.getElementsByClassName("cheerSound"),
+      clappingSound = document.getElementsByClassName("clappingSound");
 
-      me.playCheer = function(){
-        cheers.play();
+    me.playCheer = function () {
+      cheers.play();
+    };
+    me.playClap = function () {
+      clappingSound.play();
+    };
+  })
+
+  .service('StateChanger',
+  function ($state) {
+    var me = this;
+    me.playerScore = [];
+    me.aiScore = [];
+    me.goToLobby = function () {
+      $state.go('gameLobby');
+    };
+    me.goToHome = function () {
+      $state.go('homePage');
+    };
+  })
+
+
+  .service('SortCards',
+  function ($state) {
+    var me = this,
+      suits = ["Clubs", "Diamonds", "Hearts", "Spades"],
+      cardNumbers = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
+    me.cards = [];
+    me.winner = false;
+    me.winnerName = '';
+
+    var deck = function () {
+        var suit,
+          rank;
+        for (suit in suits) {
+          for (rank in cardNumbers) {
+            me.cards.push({
+              suit: suits[suit],
+              value: cardNumbers[rank],
+              image: suits[suit] + cardNumbers[rank]
+            });
+          }
+        }
+        shuffle(me.cards);
+      },
+
+      shuffle = function (cards) {
+        var counter = cards.length,
+          temp,
+          index;
+
+        while (counter > 0) {
+          index = Math.floor(Math.random() * counter);
+          counter--;
+
+          temp = cards[counter];
+          cards[counter] = cards[index];
+          cards[index] = temp;
+        }
+        return cards;
+      },
+
+      goToHome = function () {
+        $state.go('homePage');
       };
-      me.playClap = function (){
-        clappingSound.play();
+
+    me.init = function () {
+      deck();
+    };
+
+    me.stateChanger = function () {
+      goToHome();
+    };
+  })
+
+  .service('DisplayCards', ['$timeout', '$interval', '$ionicPopup', 'SortCards', 'StateChanger',
+    function ($timeout, $interval, $ionicPopup, sortCards, stateChanger) {
+      var me = this,
+        aiWinner = function () {
+          var aiMessage = $ionicPopup.alert({
+            title: 'You lose this time!',
+            template: 'AI has won the game. Better luck next time!'
+          });
+          sortCards.winnerName = 'AI';
+          $timeout(stateChanger.goToHome, 4000);
+          $interval.cancel(me.dealCards);
+          sortCards.cards = [];
+          sortCards.chosenCard = null;
+          sortCards.chosenCard.image = null;
+          sortCards.previousCard = null;
+          stateChanger.aiScore.push('|');
+        };
+      me.chosenCard = null;
+
+      me.showCard = function () {
+        me.hideMe = false;
+        var i = 0;
+        me.dealCards = $interval(function () {
+          me.chosenCard = sortCards.cards[i];
+          me.previousCard = sortCards.cards[i - 1];
+          i++;
+          if (me.chosenCard.value === me.previousCard.value) {
+            $timeout(function () {
+              if (me.winner !== true) {
+                aiWinner();
+              }
+            }, 1000);
+          }
+        }, 3500, sortCards.cards.length);
+        me.aiMessage = '';
       };
-    });
+    }])
+
+  .service('CheckForWins', ['$timeout', '$interval', '$ionicPopup', 'SortCards', 'WinConditions', 'DisplayCards', 'StateChanger',
+    function ($timeout, $interval, $ionicPopup, sortCards, winConditions, displayCards, stateChanger) {
+      var me = this;
+
+      me.checkSnap = function () {
+        if (displayCards.chosenCard.value === displayCards.previousCard.value) {
+          var snapMessage = $ionicPopup.alert({
+            title: 'Well done, you are fast',
+            template: 'SNAP! We have a winner!'
+          });
+          sortCards.winnerName = 'Human';
+          sortCards.winner = true;
+          stateChanger.playerScore.push('|');
+          winConditions.clearData();
+        }
+        else {
+          winConditions.isButtonDisabled = true;
+          winConditions.loseCondition();
+        }
+      };
+    }])
+
+  .service('WinConditions', ['$timeout', '$interval', '$ionicPopup', 'SortCards', 'StateChanger', 'DisplayCards',
+    function ($timeout, $interval, $ionicPopup, sortCards, stateChanger, displayCards) {
+      var me = this;
+      me.loseMessage = '';
+      me.isButtonDisabled = false;
+      me.clearData = function () {
+        $interval.cancel(displayCards.dealCards);
+        sortCards.cards = [];
+        sortCards.chosenCard = null;
+        sortCards.chosenCard.image = null;
+        sortCards.previousCard = null;
+        $timeout(me.winCondition, 5000);
+      };
+      me.winCondition = function () {
+        stateChanger.goToHome();
+        me.snapMessage = '';
+      };
+
+      me.loseCondition = function () {
+        var loseMessage = $ionicPopup.alert({
+          title: 'Bad timing. Not a match.',
+          template: 'YOU THOUGHT WRONG! You cant call snap now for 5 seconds.'
+        });
+        $timeout(function () {
+          me.loseMessage = '';
+          me.isButtonDisabled = false;
+        }, 5000);
+      };
+    }]);
 
 
 

@@ -42,7 +42,21 @@ angular.module('app.controllers', [])
 
 
   .controller('miniGameController', ['$scope','GameFunctions',
-    function ($scope, gameFunctions) {
+    function ($scope, gameFunctions, miniGame) {
       $scope.gameFunctions = gameFunctions;
+      $scope.miniGame = miniGame;
 
+    }])
+
+  .controller('HomeController', ['$scope','StateChanger',
+    function ($scope, stateChanger) {
+      $scope.stateChange = stateChanger;
+    }])
+
+  .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
+    function ($scope, sortCards, winConditions, displayCards, checkForWins) {
+      $scope.sortCards = sortCards;
+      $scope.winConditions = winConditions;
+      $scope.displayCards = displayCards;
+      $scope.checkForWins = checkForWins;
     }]);

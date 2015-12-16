@@ -1,4 +1,8 @@
 <ion-view title="Mini Game" class="centreLobby" ng-init="gameFunctions.init();" on-swipe-right="gameFunctions.turnRight();" on-swipe-left="gameFunctions.turnLeft();" on-swipe-up=gameFunctions.turnUp() on-swipe-down="gameFunctions.turnDown();">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-nav-view></ion-nav-view>
   <ion-content scroll="false" padding="'true'" class="has-header">
     <ion-list>
       <ion-item class="aboveCanvas">
@@ -10,9 +14,6 @@
     <canvas id="canvas" width="450" height="450" ng-swipe-right=gameFunctions.turnRight() ng-swipe-left=gameFunctions.turnLeft() ng-swipe-up=gameFunctions.turnUp() ng-swipe-down=gameFunctions.turnDown()></canvas>
 
 
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
+
   </ion-content>
 </ion-view>
