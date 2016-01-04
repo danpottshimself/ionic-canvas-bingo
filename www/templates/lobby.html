@@ -4,18 +4,17 @@
         <img src="img/RIYcax0TFi1jq0ovN2El_pageBanner.png" width="100%" height="auto">
         <div class="spacer" style="width: 300px; height: 19px;"></div>
         <div class="centreLobby">
-            <h2>Welcome! Lets play some bingo</h2>
+            <h4>Welcome! Lets play some games</h4>
             <div class="playerInformation">
                 <div>Username: {{userLogIn.username}}</div>
                 <div>Balance:{{userLogIn.balance | currency}}</div>
             </div>
         </div>
-        <div class="spacer" style="width: 300px; height: 52px;"></div>
-        <button class="button button-positive button-block " ng-click="gameApi.getNextGame()">Play Bingo</button>
-        <button class="button button-positive button-block " ng-click="miniGameEnter.playGame()">Play Snake</button>
-      <button class="button button-positive button-block " ng-click="miniGameEnter.playMatch()">Play Pairs</button>
-      <button class="button button-positive button-block " ng-click="miniGameEnter.playSnap()">Play Snap</button>
-      <button class="button button-positive button-block " ng-click="miniGameEnter.playBlackJack()">Play BlackJack</button>
+        <img src="../img/bingo_buttton.png" class="gameIcons animated hover01" ng-click="gameApi.getNextGame()">
+        <img src="../img/snake_button.png" class="gameIcons hover01" ng-click="miniGameEnter.playGame()">
+      <img src="../img/snap_button.png" class="gameIcons"  ng-click="miniGameEnter.playSnap()">
+      <img src="../img/blackjack_button.png" class="gameIcons"  ng-click="miniGameEnter.playBlackJack()">
+      <img src="../img/pairs_button.png" class="gameIcons"  ng-click="miniGameEnter.playMatch()">
       <button class="button button-positive button-block " ng-click="userLogIn.logOut()">Log Out</button>
     </ion-content>
 </ion-view>

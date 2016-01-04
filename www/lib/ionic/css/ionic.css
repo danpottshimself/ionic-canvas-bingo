@@ -15658,3 +15658,52 @@ canvas {
 .moneyButton {
   margin-left: 5%;
 }
+
+@-webkit-keyframes zoomImage {
+  from {
+    opacity: 0;
+  }
+
+  to{
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+  }
+}
+@keyframes zoomImage {
+  from {
+    opacity: 0;
+  }
+
+to{
+  -webkit-transform: scale(2);
+  transform: scale(2);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  }
+}
+
+.zoomIn {
+  -webkit-animation-name: zoomImage;
+  animation-name: zoomImage;
+}
+
+
+.gameIcons{
+  width: 70px;
+  height: 70px;
+  margin: 5%;
+}
+
+.gameIcons:hover {
+  animation: zoomImage 3s linear;
+}
+
+.gridCell{
+  width: 70px;
+  height:70px;
+  display: inline-block;
+  padding: 5px;
+  margin: 1%;
+}

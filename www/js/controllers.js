@@ -2,7 +2,7 @@ angular.module('app.controllers', [])
   .filter('SpaceFilter', [
     function () {
 
-      return function(ticketNumber){
+      return function (ticketNumber) {
         if (ticketNumber.ticketNumber === '00') {
           return 'blankSpace';
         }
@@ -17,19 +17,19 @@ angular.module('app.controllers', [])
     }])
 
   .controller('loginCtrl', ['$scope', 'UserLogIn',
-      function ($scope, userLogIn) {
-        $scope.userLogIn = userLogIn;
+    function ($scope, userLogIn) {
+      $scope.userLogIn = userLogIn;
 
-      }])
+    }])
 
-  .controller('lobbyCtrl', ['$scope', 'UserLogIn','GameApiModel','MiniGameEnter',
+  .controller('lobbyCtrl', ['$scope', 'UserLogIn', 'GameApiModel', 'MiniGameEnter',
     function ($scope, userLogIn, gameApiModel, miniGameEnter) {
       $scope.userLogIn = userLogIn;
       $scope.gameApi = gameApiModel;
       $scope.miniGameEnter = miniGameEnter;
     }])
 
-  .controller('ticketMasterCtrl', ['$scope', 'UserLogIn','GameTimer','BingoCall', 'CheckWinners','TicketCreation', 'GameApiModel',
+  .controller('ticketMasterCtrl', ['$scope', 'UserLogIn', 'GameTimer', 'BingoCall', 'CheckWinners', 'TicketCreation', 'GameApiModel',
     function ($scope, userLogIn, gameTime, bingoCall, checkWinners, ticketMaker, gameApiModel) {
       $scope.userLogIn = userLogIn;
       $scope.gameTimer = gameTime;
@@ -40,23 +40,27 @@ angular.module('app.controllers', [])
     }])
 
 
-
-  .controller('miniGameController', ['$scope','GameFunctions',
+  .controller('miniGameController', ['$scope', 'GameFunctions',
     function ($scope, gameFunctions, miniGame) {
       $scope.gameFunctions = gameFunctions;
       $scope.miniGame = miniGame;
 
     }])
 
-  .controller('HomeController', ['$scope','StateChanger',
+  .controller('HomeController', ['$scope', 'StateChanger',
     function ($scope, stateChanger) {
       $scope.stateChange = stateChanger;
     }])
 
-  .controller('BlackJackController', ['$scope','BlackJackGamePlay','BetMoney',
+  .controller('BlackJackController', ['$scope', 'BlackJackGamePlay', 'BetMoney',
     function ($scope, blackJackGamePlay, betMoney) {
       $scope.startPlaying = blackJackGamePlay;
       $scope.betMoney = betMoney;
+    }])
+
+  .controller('PairsGame', ['$scope', 'CreateGrid',
+    function ($scope, createGrid) {
+    $scope.createGrid = createGrid;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',

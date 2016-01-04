@@ -24,7 +24,7 @@ angular.module('app.controllers', [])
   .filter('SpaceFilter', [
     function () {
 
-      return function(ticketNumber){
+      return function (ticketNumber) {
         if (ticketNumber.ticketNumber === '00') {
           return 'blankSpace';
         }
@@ -39,19 +39,19 @@ angular.module('app.controllers', [])
     }])
 
   .controller('loginCtrl', ['$scope', 'UserLogIn',
-      function ($scope, userLogIn) {
-        $scope.userLogIn = userLogIn;
+    function ($scope, userLogIn) {
+      $scope.userLogIn = userLogIn;
 
-      }])
+    }])
 
-  .controller('lobbyCtrl', ['$scope', 'UserLogIn','GameApiModel','MiniGameEnter',
+  .controller('lobbyCtrl', ['$scope', 'UserLogIn', 'GameApiModel', 'MiniGameEnter',
     function ($scope, userLogIn, gameApiModel, miniGameEnter) {
       $scope.userLogIn = userLogIn;
       $scope.gameApi = gameApiModel;
       $scope.miniGameEnter = miniGameEnter;
     }])
 
-  .controller('ticketMasterCtrl', ['$scope', 'UserLogIn','GameTimer','BingoCall', 'CheckWinners','TicketCreation', 'GameApiModel',
+  .controller('ticketMasterCtrl', ['$scope', 'UserLogIn', 'GameTimer', 'BingoCall', 'CheckWinners', 'TicketCreation', 'GameApiModel',
     function ($scope, userLogIn, gameTime, bingoCall, checkWinners, ticketMaker, gameApiModel) {
       $scope.userLogIn = userLogIn;
       $scope.gameTimer = gameTime;
@@ -62,23 +62,27 @@ angular.module('app.controllers', [])
     }])
 
 
-
-  .controller('miniGameController', ['$scope','GameFunctions',
+  .controller('miniGameController', ['$scope', 'GameFunctions',
     function ($scope, gameFunctions, miniGame) {
       $scope.gameFunctions = gameFunctions;
       $scope.miniGame = miniGame;
 
     }])
 
-  .controller('HomeController', ['$scope','StateChanger',
+  .controller('HomeController', ['$scope', 'StateChanger',
     function ($scope, stateChanger) {
       $scope.stateChange = stateChanger;
     }])
 
-  .controller('BlackJackController', ['$scope','BlackJackGamePlay','BetMoney',
+  .controller('BlackJackController', ['$scope', 'BlackJackGamePlay', 'BetMoney',
     function ($scope, blackJackGamePlay, betMoney) {
       $scope.startPlaying = blackJackGamePlay;
       $scope.betMoney = betMoney;
+    }])
+
+  .controller('PairsGame', ['$scope', 'CreateGrid',
+    function ($scope, createGrid) {
+    $scope.createGrid = createGrid;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
@@ -94,21 +98,21 @@ angular.module('app.directives', [])
   .directive('cardDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/card-displays.html'
+      templateUrl: 'templates/partials/card-displays.html'
     }
   }])
 
   .directive('buttonDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/buttons.html'
+      templateUrl: 'templates/partials/buttons.html'
     }
   }])
 
   .directive('aiCardDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/ai-card-displays.html'
+      templateUrl: 'templates/partials/ai-card-displays.html'
     }
   }]);
 
@@ -1033,7 +1037,7 @@ angular.module('app.services', [])
       var me = this,
         checkForEmptyBalance = function () {
           if (blackJackGamePlay.balance <= 0) {
-           blackJackGamePlay.balance = 0;
+            blackJackGamePlay.balance = 0;
             var emptyBalance = $ionicPopup.alert({
               title: 'Balance Empty',
               template: 'You cannot bet any more because your balance is empty.'
@@ -1052,7 +1056,48 @@ angular.module('app.services', [])
         blackJackGamePlay.returnFrom100 = true;
         checkForEmptyBalance();
       };
-    }]);
+    }])
+
+  .service('CreateGrid',
+    function () {
+      var me = this,
+        type,
+        icon,
+      iconTypes = ["example1", "example2", "example3", "example4", "example5", "example6", "example7", "example8", "example9"],
+      totalIcons = [1,2];
+      me.icons = [1,2,3,4,5,6,7,8,9];
+      me.grid = [] ;
+      me.init = function () {
+        for (type in iconTypes) {
+          for (icon in totalIcons) {
+            me.grid.push({
+              typeOfIcon: iconTypes[type],
+              value: totalIcons[icon],
+              image: iconTypes[type] + totalIcons[icon]
+            });
+          }
+        }
+        shuffle(me.grid);
+      };
+
+      var shuffle = function (grid) {
+        console.log(grid);
+        var counter = grid.length,
+          temp,
+          index;
+
+        while (counter > 0) {
+          index = Math.floor(Math.random() * counter);
+          counter--;
+
+          temp = grid[counter];
+          grid[counter] = grid[index];
+          grid[index] = temp;
+        }
+        return grid;
+      };
+      console.log(me.grid);
+    });
 
 
 
@@ -1093,7 +1138,7 @@ angular.module('app.routes', [])
     .state('pairsGame', {
       url: '/pairsGame',
       templateUrl: 'templates/mini-game2.html',
-      controller: 'miniGameController'
+      controller: 'PairsGame'
     })
 
 

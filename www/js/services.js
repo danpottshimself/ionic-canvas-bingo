@@ -918,7 +918,7 @@ angular.module('app.services', [])
       var me = this,
         checkForEmptyBalance = function () {
           if (blackJackGamePlay.balance <= 0) {
-           blackJackGamePlay.balance = 0;
+            blackJackGamePlay.balance = 0;
             var emptyBalance = $ionicPopup.alert({
               title: 'Balance Empty',
               template: 'You cannot bet any more because your balance is empty.'
@@ -937,7 +937,48 @@ angular.module('app.services', [])
         blackJackGamePlay.returnFrom100 = true;
         checkForEmptyBalance();
       };
-    }]);
+    }])
+
+  .service('CreateGrid',
+    function () {
+      var me = this,
+        type,
+        icon,
+      iconTypes = ["example1", "example2", "example3", "example4", "example5", "example6", "example7", "example8", "example9"],
+      totalIcons = [1,2];
+      me.icons = [1,2,3,4,5,6,7,8,9];
+      me.grid = [] ;
+      me.init = function () {
+        for (type in iconTypes) {
+          for (icon in totalIcons) {
+            me.grid.push({
+              typeOfIcon: iconTypes[type],
+              value: totalIcons[icon],
+              image: iconTypes[type] + totalIcons[icon]
+            });
+          }
+        }
+        shuffle(me.grid);
+      };
+
+      var shuffle = function (grid) {
+        console.log(grid);
+        var counter = grid.length,
+          temp,
+          index;
+
+        while (counter > 0) {
+          index = Math.floor(Math.random() * counter);
+          counter--;
+
+          temp = grid[counter];
+          grid[counter] = grid[index];
+          grid[index] = temp;
+        }
+        return grid;
+      };
+      console.log(me.grid);
+    });
 
 
 

@@ -3,21 +3,21 @@ angular.module('app.directives', [])
   .directive('cardDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/card-displays.html'
+      templateUrl: 'templates/partials/card-displays.html'
     }
   }])
 
   .directive('buttonDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/buttons.html'
+      templateUrl: 'templates/partials/buttons.html'
     }
   }])
 
   .directive('aiCardDisplays', [function () {
     return {
       restrict: 'E',
-      templateUrl: 'templates/ai-card-displays.html'
+      templateUrl: 'templates/partials/ai-card-displays.html'
     }
   }]);
 

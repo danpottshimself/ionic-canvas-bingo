@@ -33,7 +33,7 @@ angular.module('app.routes', [])
     .state('pairsGame', {
       url: '/pairsGame',
       templateUrl: 'templates/mini-game2.html',
-      controller: 'miniGameController'
+      controller: 'PairsGame'
     })
 
 
