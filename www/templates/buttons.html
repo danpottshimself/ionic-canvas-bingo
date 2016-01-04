@@ -1,0 +1,8 @@
+<input type="button" class="moneyButton" value="Bet $10" ng-click="betMoney.reduceBalance10()" ng-hide="!startPlaying.isStickButtonShowing">
+<input type="button"  class="moneyButton"  value="Bet $100" ng-click="betMoney.reduceBalance100()" ng-hide="!startPlaying.isStickButtonShowing">
+<img src="img/help.png" class="helpButton" ng-click="startPlaying.helpButton()">
+<div class="spacer" style="width: 300px; height: 19px;"></div>
+<input type="button" value="Deal Cards" ng-click="startPlaying.init()" ng-hide="startPlaying.hideButtons">
+<input type="button" value="Hit" ng-click="startPlaying.addCard()" ng-hide="startPlaying.hideButtons">
+<input type="button" value="Stick" ng-click="startPlaying.stickSelected()" ng-hide="startPlaying.isStickButtonShowing">
+<br>

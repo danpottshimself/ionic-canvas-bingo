@@ -53,6 +53,12 @@ angular.module('app.controllers', [])
       $scope.stateChange = stateChanger;
     }])
 
+  .controller('BlackJackController', ['$scope','BlackJackGamePlay','BetMoney',
+    function ($scope, blackJackGamePlay, betMoney) {
+      $scope.startPlaying = blackJackGamePlay;
+      $scope.betMoney = betMoney;
+    }])
+
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
     function ($scope, sortCards, winConditions, displayCards, checkForWins) {
       $scope.sortCards = sortCards;

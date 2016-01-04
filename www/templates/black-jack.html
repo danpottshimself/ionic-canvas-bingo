@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<ion-view title="Black Jack" class="centreLobby">
+  <ion-content padding="'true'" class="has-header background">
+    <ion-list>
+      <ion-item>
+      <h2> Balance: {{startPlaying.balance | currency}}</h2>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="width: 300px; height: 19px;"></div>
+    <button-displays></button-displays>
+    <div class="spacer" style="width: 300px; height: 19px;"></div>
+    <card-displays></card-displays>
+    <div class="spacer" style="width: 300px; height: 19px;"></div>
+    <ai-card-displays></ai-card-displays>
+  </ion-content>
+</ion-view>

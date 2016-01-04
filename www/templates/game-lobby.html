@@ -12,12 +12,12 @@
 <!--</ion-view>-->
 
 <ion-view title="SNAP!">
-  <ion-content scroll="true" padding="'true'" class="has-header content">
+  <ion-content scroll="true" padding="'true'" class="has-header content background" >
     <ion-list>
       <ion-item>
       <input type="button" value="Shuffle Cards" ng-click="sortCards.init()"></ion-item>
       <ion-item><input type="button" value="Play Snap" ng-click="displayCards.showCard()"></ion-item>
-      <div class="content imageContainer animated flipOutY infinite {{displayCards.chosenCard.image}}" ng-hide="sortCards.hideMe"> </div>
+      <div class="content imageContainer animated2 flipOutY infinite {{displayCards.chosenCard.image}}" ng-hide="sortCards.hideMe"> </div>
       <div class="content"> <input type="image" class="snapButton" src="../img/snap-button.png" ng-disabled="winConditions.isButtonDisabled" ng-click="checkForWins.checkSnap()"> </div>
       </ion-item>
     </ion-list>

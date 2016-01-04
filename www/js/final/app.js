@@ -1,3 +1,118 @@
+// Ionic Starter App
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+// 'starter.services' is found in services.js
+// 'starter.controllers' is found in controllers.js
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if(window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+  });
+})
+angular.module('app.controllers', [])
+  .filter('SpaceFilter', [
+    function () {
+
+      return function(ticketNumber){
+        if (ticketNumber.ticketNumber === '00') {
+          return 'blankSpace';
+        }
+
+        if (ticketNumber.matched === true) {
+          return 'matched';
+        }
+        else {
+          return 'noMatch';
+        }
+      };
+    }])
+
+  .controller('loginCtrl', ['$scope', 'UserLogIn',
+      function ($scope, userLogIn) {
+        $scope.userLogIn = userLogIn;
+
+      }])
+
+  .controller('lobbyCtrl', ['$scope', 'UserLogIn','GameApiModel','MiniGameEnter',
+    function ($scope, userLogIn, gameApiModel, miniGameEnter) {
+      $scope.userLogIn = userLogIn;
+      $scope.gameApi = gameApiModel;
+      $scope.miniGameEnter = miniGameEnter;
+    }])
+
+  .controller('ticketMasterCtrl', ['$scope', 'UserLogIn','GameTimer','BingoCall', 'CheckWinners','TicketCreation', 'GameApiModel',
+    function ($scope, userLogIn, gameTime, bingoCall, checkWinners, ticketMaker, gameApiModel) {
+      $scope.userLogIn = userLogIn;
+      $scope.gameTimer = gameTime;
+      $scope.callingMethod = bingoCall;
+      $scope.checkWinners = checkWinners;
+      $scope.ticketCreation = ticketMaker;
+      $scope.gameApi = gameApiModel;
+    }])
+
+
+
+  .controller('miniGameController', ['$scope','GameFunctions',
+    function ($scope, gameFunctions, miniGame) {
+      $scope.gameFunctions = gameFunctions;
+      $scope.miniGame = miniGame;
+
+    }])
+
+  .controller('HomeController', ['$scope','StateChanger',
+    function ($scope, stateChanger) {
+      $scope.stateChange = stateChanger;
+    }])
+
+  .controller('BlackJackController', ['$scope','BlackJackGamePlay','BetMoney',
+    function ($scope, blackJackGamePlay, betMoney) {
+      $scope.startPlaying = blackJackGamePlay;
+      $scope.betMoney = betMoney;
+    }])
+
+  .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
+    function ($scope, sortCards, winConditions, displayCards, checkForWins) {
+      $scope.sortCards = sortCards;
+      $scope.winConditions = winConditions;
+      $scope.displayCards = displayCards;
+      $scope.checkForWins = checkForWins;
+    }]);
+
+angular.module('app.directives', [])
+
+  .directive('cardDisplays', [function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/card-displays.html'
+    }
+  }])
+
+  .directive('buttonDisplays', [function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/buttons.html'
+    }
+  }])
+
+  .directive('aiCardDisplays', [function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/ai-card-displays.html'
+    }
+  }]);
+
+
 angular.module('app.services', [])
 
   .factory('BlankFactory', [function () {
@@ -942,3 +1057,73 @@ angular.module('app.services', [])
 
 
 
+
+angular.module('app.routes', [])
+
+.config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+
+
+
+    .state('logIn', {
+      url: '/logIn',
+      templateUrl: 'templates/login.html',
+      controller: 'loginCtrl'
+    })
+
+
+    .state('lobby', {
+      url: '/lobby',
+      templateUrl: 'templates/lobby.html',
+      controller: 'lobbyCtrl'
+    })
+
+
+    .state('miniGame', {
+      url: '/miniGame',
+      templateUrl: 'templates/mini-game.html',
+      controller: 'miniGameController'
+    })
+
+    .state('pairsGame', {
+      url: '/pairsGame',
+      templateUrl: 'templates/mini-game2.html',
+      controller: 'miniGameController'
+    })
+
+
+    .state('tickets', {
+      url: '/ticketMaster',
+      templateUrl: 'templates/ticketMaster.html',
+      controller: 'ticketMasterCtrl'
+    })
+
+    .state('homePage', {
+      url: "/HomePage",
+      templateUrl: 'templates/home-page.html',
+      controller: 'HomeController'
+    })
+
+    .state('gameLobby', {
+      url: "/lobby",
+      templateUrl: 'templates/game-lobby.html',
+      controller: 'LobbyController'
+    })
+
+    .state('blackJack', {
+      url: "/blackJack",
+      templateUrl: 'templates/black-jack.html',
+      controller: 'BlackJackController'
+    })
+
+    ;
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/logIn');
+
+});
