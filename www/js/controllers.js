@@ -58,10 +58,12 @@ angular.module('app.controllers', [])
       $scope.betMoney = betMoney;
     }])
 
-  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown',
-    function ($scope, createGrid, countDown) {
+  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown','IconFlip','CheckForWins',
+    function ($scope, createGrid, countDown, iconFlip, checkWinners) {
     $scope.createGrid = createGrid;
     $scope.countDown = countDown;
+    $scope.iconFlip = iconFlip;
+    $scope.checkForFlipWins = checkWinners;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',

@@ -80,10 +80,12 @@ angular.module('app.controllers', [])
       $scope.betMoney = betMoney;
     }])
 
-  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown',
-    function ($scope, createGrid, countDown) {
+  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown','IconFlip','CheckForWins',
+    function ($scope, createGrid, countDown, iconFlip, checkWinners) {
     $scope.createGrid = createGrid;
     $scope.countDown = countDown;
+    $scope.iconFlip = iconFlip;
+    $scope.checkForFlipWins = checkWinners;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
@@ -754,7 +756,7 @@ angular.module('app.services', [])
           });
           sortCards.winnerName = 'AI';
           sortCards.cards.image = null;
-          $timeout(stateChanger.goToHome, 4000);
+          $timeout(stateChanger.goToHome, 2000);
           $interval.cancel(me.dealCards);
           sortCards.cards = [];
           sortCards.chosenCard = null;
@@ -777,7 +779,7 @@ angular.module('app.services', [])
               }
             }, 1000);
           }
-        }, 3500, sortCards.cards.length);
+        }, 3000, sortCards.cards.length);
         me.aiMessage = '';
       };
     }])
@@ -816,7 +818,7 @@ angular.module('app.services', [])
         sortCards.chosenCard = null;
         sortCards.chosenCard.image = null;
         sortCards.previousCard = null;
-        $timeout(me.winCondition, 5000);
+        $timeout(me.winCondition, 2000);
       };
       me.winCondition = function () {
         stateChanger.goToHome();
@@ -1059,19 +1061,17 @@ angular.module('app.services', [])
       };
     }])
 
-  .service('CreateGrid', ['$ionicPopup', 'CountDown', '$timeout',
-    function ($ionicPopup, countDown, $timeout) {
+  .service('CreateGrid', ['$ionicPopup', 'CountDown',
+    function ($ionicPopup, countDown) {
       var me = this,
         type,
         icon,
-        matchedTotal = 0,
-        selected1 = null,
-        selected2 = null,
         iconTypes = ["example1", "example2", "example3", "example4", "example5", "example6", "example7", "example8", "example9"],
         totalIcons = [1, 2];
+      me.selected1 = null;
+      me.selected2 = null;
       me.icons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
       me.grid = [];
-      me.highScore = 50;
       me.init = function () {
         countDown.uiHidden = false;
         for (type in iconTypes) {
@@ -1105,78 +1105,6 @@ angular.module('app.services', [])
         }
         return grid;
       };
-
-      me.flipIcons = function (objects) {
-        if (selected1 !== null && selected2 !== null) {
-          return;
-        }
-        objects.flipped = true;
-
-        if (selected1 === null) {
-          selected1 = objects;
-        }
-        else {
-          selected2 = objects;
-          statements();
-        }
-      };
-
-      var statements = function () {
-        if (selected1.image === selected2.image) {
-          selected2.flipped = false;
-          selected2 = null;
-        }
-        else {
-          $timeout(function () {
-            selected1.flipped = false;
-            selected2.flipped = false;
-            checkFlips();
-          }, 1000);
-        }
-      };
-
-      var checkWins = function () {
-        if (selected1.typeOfIcon === selected2.typeOfIcon) {
-          selected1.matched = true;
-          selected2.matched = true;
-          countDown.timeLimit += 5;
-          matchedTotal += 2;
-          selected1 = null;
-          selected2 = null;
-        }
-        selected1 = null;
-        selected2 = null;
-
-        if (matchedTotal === 18) {
-          countDown.cancelTimer();
-          var score = Math.floor(1200 / (60 - countDown.timeLimit));
-          if(score > me.highScore){
-            me.highScore = score;
-            var highScore = $ionicPopup.alert({
-              title: 'High Score',
-              template: 'New high score! Your score was ' + score
-            });
-          }
-          var iconWinner = $ionicPopup.alert({
-            title: 'You Win',
-            template: 'Your score was ' + score + ". Well Done!"
-          });
-          $timeout(function () {
-            me.grid = [];
-            selected1 = null;
-            selected2 = null;
-            matchedTotal = 0;
-            countDown.timeLimit = 60;
-            countDown.uiHidden = false;
-          }, 3000);
-        }
-      };
-
-      var checkFlips = function () {
-        if (selected1 !== null && selected2 !== null) {
-          checkWins();
-        }
-      };
     }])
 
   .service('CountDown', ['$interval', '$ionicPopup',
@@ -1207,9 +1135,105 @@ angular.module('app.services', [])
       me.cancelTimer = function () {
         $interval.cancel(timer);
       };
+    }])
+
+  .service('IconFlip', ['$timeout', 'CreateGrid','CheckForWins',
+    function ($timeout, createGrid, checkForWins) {
+      var me = this;
+
+      var checkFlip = function () {
+        if (createGrid.selected1.image === createGrid.selected2.image) {
+          createGrid.selected2.flipped = false;
+          createGrid.selected2 = null;
+        }
+        else {
+          $timeout(function () {
+            createGrid.selected1.flipped = false;
+            createGrid.selected2.flipped = false;
+            checkForEmpties();
+          }, 1000);
+        }
+      };
+
+      var checkForEmpties = function () {
+        if (createGrid.selected1 !== null && createGrid.selected2 !== null) {
+          checkForWins.checkWins();
+        }
+      };
+
+      me.flipIcons = function (objects) {
+        if (createGrid.selected1 !== null && createGrid.selected2 !== null) {
+          return;
+        }
+        objects.flipped = true;
+
+        if (createGrid.selected1 === null) {
+          createGrid.selected1 = objects;
+        }
+        else {
+          createGrid.selected2 = objects;
+          checkFlip();
+        }
+      };
+    }])
+
+  .service('CheckForWins', ['$interval', '$timeout', '$ionicPopup','CreateGrid','CountDown',
+    function ($interval, $timeout, $ionicPopup, createGrid, countDown) {
+      var me = this,
+        score,
+        matchedTotal = 0;
+      me.highScore = 10;
+
+      var winConditions = function (){
+        if (matchedTotal === 18) {
+          score = Math.floor(1200 / (100 - countDown.timeLimit));
+          countDown.cancelTimer();
+          checkHighScore();
+
+          var iconWinner = $ionicPopup.alert({
+            title: 'You Win',
+            template: 'Your score was ' + score + ". Well Done!"
+          });
+          me.clearData()
+        }
+      };
+
+      var checkHighScore = function () {
+        if (score > me.highScore) {
+          me.highScore = score;
+          var highScore = $ionicPopup.alert({
+            title: 'High Score',
+            template: 'New high score! Your score was ' + score
+          });
+        }
+      };
+
+      me.checkWins = function () {
+        if (createGrid.selected1.typeOfIcon === createGrid.selected2.typeOfIcon) {
+          createGrid.selected1.matched = true;
+          createGrid.selected2.matched = true;
+          countDown.timeLimit += 5;
+          matchedTotal += 2;
+          createGrid.selected1 = null;
+          createGrid.selected2 = null;
+        }
+        createGrid.selected1 = null;
+        createGrid.selected2 = null;
+        winConditions();
+      };
+
+      me.clearData = function () {
+        $timeout(function () {
+          createGrid.grid = [];
+          createGrid.selected1 = null;
+          createGrid.selected2 = null;
+          matchedTotal = 0;
+          countDown.timeLimit = 60;
+          countDown.uiHidden = false;
+        }, 3000);
+      };
+
     }]);
-
-
 
 
 

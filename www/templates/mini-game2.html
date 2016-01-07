@@ -3,14 +3,14 @@
     <ion-list>
       <ion-item class="aboveCanvas">
         <h2> Find every pair of icons to win the game</h2>
-        <h2> Highscore : {{createGrid.highScore}} </h2>
+        <h2> Highscore : {{checkForFlipWins.highScore}} </h2>
       </ion-item>
       <ion-item>
         <input type="button" value="Start" ng-hide="countDown.uiHidden" ng-click="createGrid.init(); countDown.uiInit();"> <div ng-class="countDown.isCritical ? 'critcalTime' : 'normalTime'" ng-hide="!countDown.uiHidden"> {{countDown.timeLimit}}</div>
       </ion-item>
     </ion-list>
     <div ng-repeat="objects in createGrid.grid" class="wholeGrid" ng-hide="!countDown.uiHidden">
-      <div ng-class="objects.flipped ? objects.image : 'cardFront'" class="gridCell {{objects.matched}}"  ng-click="createGrid.flipIcons(objects)">
+      <div ng-class="objects.flipped ? objects.image : 'cardFront'" class="gridCell {{objects.matched}}"  ng-click="iconFlip.flipIcons(objects)">
       </div>
     </div>
   </ion-content>
