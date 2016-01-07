@@ -58,9 +58,10 @@ angular.module('app.controllers', [])
       $scope.betMoney = betMoney;
     }])
 
-  .controller('PairsGame', ['$scope', 'CreateGrid',
-    function ($scope, createGrid) {
+  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown',
+    function ($scope, createGrid, countDown) {
     $scope.createGrid = createGrid;
+    $scope.countDown = countDown;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',

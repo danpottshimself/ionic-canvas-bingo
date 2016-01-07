@@ -80,9 +80,10 @@ angular.module('app.controllers', [])
       $scope.betMoney = betMoney;
     }])
 
-  .controller('PairsGame', ['$scope', 'CreateGrid',
-    function ($scope, createGrid) {
+  .controller('PairsGame', ['$scope', 'CreateGrid','CountDown',
+    function ($scope, createGrid, countDown) {
     $scope.createGrid = createGrid;
+    $scope.countDown = countDown;
     }])
 
   .controller('LobbyController', ['$scope', 'SortCards', 'WinConditions', 'DisplayCards', 'CheckForWins',
@@ -1058,22 +1059,30 @@ angular.module('app.services', [])
       };
     }])
 
-  .service('CreateGrid',
-    function () {
+  .service('CreateGrid', ['$ionicPopup', 'CountDown', '$timeout',
+    function ($ionicPopup, countDown, $timeout) {
       var me = this,
         type,
         icon,
-      iconTypes = ["example1", "example2", "example3", "example4", "example5", "example6", "example7", "example8", "example9"],
-      totalIcons = [1,2];
-      me.icons = [1,2,3,4,5,6,7,8,9];
-      me.grid = [] ;
+        matchedTotal = 0,
+        selected1 = null,
+        selected2 = null,
+        iconTypes = ["example1", "example2", "example3", "example4", "example5", "example6", "example7", "example8", "example9"],
+        totalIcons = [1, 2];
+      me.icons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      me.grid = [];
+      me.highScore = 50;
       me.init = function () {
+        countDown.uiHidden = false;
         for (type in iconTypes) {
           for (icon in totalIcons) {
             me.grid.push({
               typeOfIcon: iconTypes[type],
               value: totalIcons[icon],
-              image: iconTypes[type] + totalIcons[icon]
+              defaultImage: 'frontCard',
+              image: iconTypes[type] + totalIcons[icon],
+              flipped: false,
+              matched: false
             });
           }
         }
@@ -1096,8 +1105,109 @@ angular.module('app.services', [])
         }
         return grid;
       };
-      console.log(me.grid);
-    });
+
+      me.flipIcons = function (objects) {
+        if (selected1 !== null && selected2 !== null) {
+          return;
+        }
+        objects.flipped = true;
+
+        if (selected1 === null) {
+          selected1 = objects;
+        }
+        else {
+          selected2 = objects;
+          statements();
+        }
+      };
+
+      var statements = function () {
+        if (selected1.image === selected2.image) {
+          selected2.flipped = false;
+          selected2 = null;
+        }
+        else {
+          $timeout(function () {
+            selected1.flipped = false;
+            selected2.flipped = false;
+            checkFlips();
+          }, 1000);
+        }
+      };
+
+      var checkWins = function () {
+        if (selected1.typeOfIcon === selected2.typeOfIcon) {
+          selected1.matched = true;
+          selected2.matched = true;
+          countDown.timeLimit += 5;
+          matchedTotal += 2;
+          selected1 = null;
+          selected2 = null;
+        }
+        selected1 = null;
+        selected2 = null;
+
+        if (matchedTotal === 18) {
+          countDown.cancelTimer();
+          var score = Math.floor(1200 / (60 - countDown.timeLimit));
+          if(score > me.highScore){
+            me.highScore = score;
+            var highScore = $ionicPopup.alert({
+              title: 'High Score',
+              template: 'New high score! Your score was ' + score
+            });
+          }
+          var iconWinner = $ionicPopup.alert({
+            title: 'You Win',
+            template: 'Your score was ' + score + ". Well Done!"
+          });
+          $timeout(function () {
+            me.grid = [];
+            selected1 = null;
+            selected2 = null;
+            matchedTotal = 0;
+            countDown.timeLimit = 60;
+            countDown.uiHidden = false;
+          }, 3000);
+        }
+      };
+
+      var checkFlips = function () {
+        if (selected1 !== null && selected2 !== null) {
+          checkWins();
+        }
+      };
+    }])
+
+  .service('CountDown', ['$interval', '$ionicPopup',
+    function ($interval, $ionicPopup) {
+      var me = this,
+        timer;
+      me.timeLimit = 60;
+
+      me.uiInit = function () {
+        timer = $interval(updateTime, 1000, 100);
+        me.uiHidden = true;
+      };
+
+      var updateTime = function () {
+        me.timeLimit -= 1;
+        if (me.timeLimit <= 10) {
+          me.isCritical = true;
+        }
+        if (me.timeLimit === 0) {
+          $interval.cancel(timer);
+          var iconWinner = $ionicPopup.alert({
+            title: 'You Lose',
+            template: 'You ran out of time! Try again.'
+          });
+        }
+      };
+
+      me.cancelTimer = function () {
+        $interval.cancel(timer);
+      };
+    }]);
 
 
 

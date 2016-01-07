@@ -15694,6 +15694,16 @@ to{
   width: 70px;
   height: 70px;
   margin: 5%;
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -ms-transition: -ms-transform 1s;
+  -o-transition: -o-transform 1s;
+  transition: transform 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 .gameIcons:hover {
@@ -15701,9 +15711,184 @@ to{
 }
 
 .gridCell{
-  width: 70px;
-  height:70px;
+  width: 65px;
+  height:65px;
   display: inline-block;
-  padding: 5px;
-  margin: 1%;
+  padding: 10px;
+  margin: 10px;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.wholeGrid{
+  display: inline-block;
+}
+
+.example11{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+}
+.example12{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+}
+
+.example21{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 0, -75px;
+}
+
+.example22{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 0, -75px;
+}
+
+.example31{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 68px, 0;
+}
+
+.example32{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 68px, 0;
+}
+
+.example41{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -72px, 0;
+}
+
+.example42{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -72px, 0;
+}
+
+.example51{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 417px, 0;
+}
+
+.example52{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: 417px, 0;
+}
+
+.example61{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -352px -355px;
+}
+
+.example62{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -352px -355px;
+}
+
+.example71{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -352px -422px;
+}
+
+.example72{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -352px -422px;
+}
+.example81{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -423px -422px;
+}
+.example82{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -423px -422px;
+}
+.example91{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -493px -422px;
+}
+.example92{
+  background-image: url('../../../img/icons.jpg');
+  background-size: 280px, 280px;
+  background-position: -493px -422px;
+}
+.cardFront {
+  background-image: url('http://www.sfdm.scad.edu/faculty/mkesson/vsfx755/wip/spring14/sri_krishnan/proj2/images/refernce.jpg');
+  background-size: 65px, 70px;
+}
+.true{
+  background-image: none;
+  background-size: 0,0;
+}
+
+
+.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -ms-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.front {
+  width: 60px;
+  height: 60px;
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -ms-transition: -ms-transform 1s;
+  -o-transition: -o-transform 1s;
+  transition: transform 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.back{
+  background: blue;
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -ms-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.card img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -ms-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.critcalTime{
+  color: #ef473a;
+  font-weight: bold;
 }
